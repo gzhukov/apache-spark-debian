@@ -1,0 +1,8 @@
+#!/bin/sh -e
+USERNAME="spark"
+GROUPNAME="spark"
+getent group "$GROUPNAME" >/dev/null || groupadd -r "$GROUPNAME"
+getent passwd "$USERNAME" >/dev/null || \
+      useradd -r -g "$GROUPNAME" -d /usr/lib/spark -s /bin/false \
+      -c "Spark user" "$USERNAME"
+exit 0

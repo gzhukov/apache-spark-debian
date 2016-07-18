@@ -1,0 +1,10 @@
+Package: [[name]]
+Version: [[version]]
+Section: misc
+Priority: extra
+Architecture: all
+Depends:
+Recommends: oracle-java-8
+Description: Lightning-Fast Cluster Computing
+Homepage: http://spark.incubator.apache.org/
+Maintainer: aivanov@iponweb.net
