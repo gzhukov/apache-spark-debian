@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>apache-spark</groupId>
+    <artifactId>spark</artifactId>
+    <version>1.6.1</version>
+
+    <properties>
+        <installdir>/usr/lib/spark</installdir>
+        <packageName>spark-1.6.1-bin-hadoop2.6</packageName>
+        <fileName>spark-1.6.1-bin-hadoop2.6.tgz</fileName>
+        <gcsConnectorFileName>gcs-connector-latest-hadoop2.jar</gcsConnectorFileName>
+        <user>root</user>
+        <group>root</group>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>jdeb</artifactId>
+                <groupId>org.vafer</groupId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jdeb</goal>
+                        </goals>
+
+                        <configuration>
+                            <verbose>true</verbose>
+                            <snapshotExpand>true</snapshotExpand>
+                            <snapshotEnv>USER</snapshotEnv>
+                            <verbose>true</verbose>
+                            <controlDir>${basedir}/deb/control</controlDir>
+                            <dataSet>
+
+                                <data>
+                                    <type>template</type>
+                                    <paths>
+                                        <path>/etc/${project.artifactId}</path>
+                                    </paths>
+                                </data>
+
+                                <data>
+                                    <src>${project.build.directory}/${fileName}</src>
+                                    <type>archive</type>
+                                    <excludes>${packageName}/bin/**,${packageName}/sbin/**,${packageName}/conf/**</excludes>
+
+                                    <mapper>
+                                        <type>perm</type>
+                                        <strip>1</strip>
+                                        <prefix>${installdir}</prefix>
+                                        <filemode>644</filemode>
+                                        <user>${user}</user>
+                                        <uid>0</uid>
+                                        <group>${group}</group>
+                                        <gid>0</gid>
+                                    </mapper>
+                                </data>
+
+                                <data>
+                                    <src>${project.build.directory}/${fileName}</src>
+                                    <type>archive</type>
+                                    <includes>${packageName}/bin/**,${packageName}/sbin/**</includes>
+                                    <excludes>${packageName}/bin/*.cmd,${packageName}/sbin/*.cmd</excludes>
+
+                                    <mapper>
+                                        <type>perm</type>
+                                        <strip>1</strip>
+                                        <prefix>${installdir}</prefix>
+                                        <filemode>755</filemode>
+                                        <user>${user}</user>
+                                        <uid>0</uid>
+                                        <group>${group}</group>
+                                        <gid>0</gid>
+                                    </mapper>
+                                </data>
+
+                                <data>
+                                    <src>${project.build.directory}/${gcsConnectorFileName}</src>
+                                    <type>file</type>
+
+                                    <mapper>
+                                        <type>perm</type>
+                                        <strip>1</strip>
+                                        <prefix>${installdir}/lib</prefix>
+                                        <filemode>644</filemode>
+                                        <user>${user}</user>
+                                        <uid>0</uid>
+                                        <group>${group}</group>
+                                        <gid>0</gid>
+                                    </mapper>
+                                </data>
+
+                                <data>
+                                    <src>${project.build.directory}/${fileName}</src>
+                                    <type>archive</type>
+                                    <includes>${packageName}/lib/*yarn-shuffle*</includes>
+
+                                    <mapper>
+                                        <type>perm</type>
+                                        <strip>1</strip>
+                                        <prefix>/usr/lib/hadoop-yarn/lib</prefix>
+                                        <filemode>644</filemode>
+                                        <user>${user}</user>
+                                        <uid>0</uid>
+                                        <group>${group}</group>
+                                        <gid>0</gid>
+                                    </mapper>
+                                </data>
+
+                                <data>
+                                    <src>${basedir}/deb/spark-submit</src>
+                                    <dst>/usr/bin/spark-submit</dst>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <filemode>755</filemode>
+                                        <user>${user}</user>
+                                        <uid>0</uid>
+                                        <group>${group}</group>
+                                        <gid>0</gid>
+                                    </mapper>
+                                </data>
+
+                                <data>
+                                    <src>${basedir}/deb/spark-shell</src>
+                                    <dst>/usr/bin/spark-shell</dst>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <filemode>755</filemode>
+                                        <user>${user}</user>
+                                        <uid>0</uid>
+                                        <group>${group}</group>
+                                        <gid>0</gid>
+                                    </mapper>
+                                </data>
+
+                                <data>
+                                    <type>link</type>
+                                    <symlink>true</symlink>
+                                    <linkName>${installdir}/conf</linkName>
+                                    <linkTarget>/etc/${project.artifactId}</linkTarget>
+                                </data>
+                            </dataSet>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
