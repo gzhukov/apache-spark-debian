@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>apache-spark</groupId>
-    <artifactId>spark</artifactId>
+    <artifactId>apache-spark</artifactId>
     <version>1.6.1-iow1</version>
 
     <properties>
@@ -78,7 +78,7 @@
                                 <data>
                                     <type>template</type>
                                     <paths>
-                                        <path>/etc/${project.artifactId}</path>
+                                        <path>/etc/spark</path>
                                     </paths>
                                 </data>
 
@@ -185,7 +185,7 @@
                                     <type>link</type>
                                     <symlink>true</symlink>
                                     <linkName>${spark.install.directory}/conf</linkName>
-                                    <linkTarget>/etc/${project.artifactId}</linkTarget>
+                                    <linkTarget>/etc/spark</linkTarget>
                                 </data>
                             </dataSet>
                         </configuration>
