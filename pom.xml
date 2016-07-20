@@ -7,7 +7,7 @@
 
     <groupId>apache-spark</groupId>
     <artifactId>apache-spark</artifactId>
-    <version>1.6.1-iow1</version>
+    <version>1.6.1-iow2</version>
 
     <properties>
         <spark.install.directory>/usr/lib/spark</spark.install.directory>
@@ -81,6 +81,41 @@
                                         <path>/etc/spark</path>
                                     </paths>
                                 </data>
+
+                                <data>
+                                    <type>template</type>
+                                    <paths>
+                                        <path>/var/log/spark</path>
+                                    </paths>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <filemode>755</filemode>
+                                        <user>spark</user>
+                                        <group>spark</group>
+                                    </mapper>
+                                </data>
+
+                                <data>
+                                    <src>${basedir}/deb/spark-history-server</src>
+                                    <dst>spark-history-server</dst>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/etc/init.d</prefix>
+                                        <filemode>755</filemode>
+                                    </mapper>
+                                </data>
+
+                                <data>
+                                    <src>${basedir}/deb/spark-default</src>
+                                    <dst>spark</dst>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
+                                        <prefix>/etc/default</prefix>
+                                        <filemode>644</filemode>
+                                    </mapper>
+                                </data>>
 
                                 <data>
                                     <src>${project.build.directory}/${spark.file.name}</src>
