@@ -40,10 +40,8 @@ STATUS_DEAD_AND_LOCK=2
 STATUS_NOT_RUNNING=3
 STATUS_OTHER_ERROR=102
 
-
 ERROR_PROGRAM_NOT_INSTALLED=5
 ERROR_PROGRAM_NOT_CONFIGURED=6
-
 
 RETVAL=0
 SLEEP_TIME=5
@@ -51,17 +49,19 @@ PROC_NAME="java"
 
 DAEMON="spark-history-server"
 DESC="Spark history-server"
-EXEC_PATH="/usr/lib/spark/bin/spark-class"
-EXEC_DIR=""
 SVC_USER="spark"
 DAEMON_FLAGS=""
-#CONF_DIR="/etc/spark/conf" ???
-PIDFILE="/var/run/spark/spark-history-server.pid"
+
+HOMEDIR="/usr/lib/spark"
+EXEC_PATH="${HOMEDIR}/bin/spark-class"
+CONFDIR="/etc/spark"
+LOGDIR="/var/log/spark"
+PIDDIR="/var/run/spark"
+PIDFILE="${PIDDIR}/spark-history-server.pid"
 LOCKDIR="/var/lock/subsys"
 LOCKFILE="$LOCKDIR/spark-history-server"
-#WORKING_DIR="/var/lib/spark" ???
 
-install -d -m 0755 -o spark -g spark /var/run/spark 1>/dev/null 2>&1 || :
+install -d -m 0755 -o $SVC_USER -g $SVC_USER $PIDDIR 1>/dev/null 2>&1 || :
 [ -d "$LOCKDIR" ] || install -d -m 0755 $LOCKDIR 1>/dev/null 2>&1 || :
 start() {
     [ -x $EXE_PATH ] || exit $ERROR_PROGRAM_NOT_INSTALLED
@@ -73,34 +73,44 @@ start() {
         exit 0
     fi
 
-    LOG_FILE=/var/log/spark/${DAEMON}.out
+    LOG_FILE=${LOGDIR}/${DAEMON}.out
 
-    # Need to source the defaults file here to get SPARK_HISTORY_SERVER_LOG_DIR
     . /etc/default/spark
+
+    # This part loads spark-env.sh if it exists, and ensures it is only loaded once.
+    if [ -z "$SPARK_ENV_LOADED" ]; then
+        export SPARK_ENV_LOADED=1
+        if [ -f "${CONFDIR}/spark-env.sh" ]; then
+        # Promote all variable declarations to environment (exported) variables
+            set -a
+            . "${CONFDIR}/spark-env.sh"
+            set +a
+        fi
+    fi
 
     su -s /bin/bash $SVC_USER -c "nohup nice -n 0 \
         ${EXEC_PATH} org.apache.spark.deploy.history.HistoryServer $DAEMON_FLAGS \
         > $LOG_FILE 2>&1 & "'echo $!' > "$PIDFILE"
 
-    sleep 3
+    sleep $SLEEP_TIME
 
     checkstatusofproc
     RETVAL=$?
     if [ $RETVAL -eq $STATUS_RUNNING ]; then
         touch $LOCKFILE
-        log_success_msg "Starting $DESC (${DAEMON}): "
+        log_success_msg "Starting $DESC (${DAEMON})."
     else
         log_failure_msg "Failure to start $DESC (${DAEMON}). Return value: $RETVAL"
     fi
     return $RETVAL
 }
 stop() {
-    killproc -p $PIDFILE java
+    killproc -p $PIDFILE $PROC_NAME
 	
     RETVAL=$?
 
     if [ $RETVAL -eq $RETVAL_SUCCESS ]; then
-	  log_success_msg "Stopping $DESC (${DAEMON}): "
+	  log_success_msg "Stopping $DESC (${DAEMON})."
 	  rm -f $LOCKFILE $PIDFILE
     else
 	   log_failure_msg "Failed to stop $DESC (${DAEMON}): Return value: $RETVAL"
