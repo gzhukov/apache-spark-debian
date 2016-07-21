@@ -7,6 +7,7 @@
 
     <groupId>apache-spark</groupId>
     <artifactId>apache-spark</artifactId>
+    <name>apache-spark</name>
     <version>1.6.1-iow2</version>
 
     <properties>
@@ -19,6 +20,8 @@
         <gcs.connector.file.name>gcs-connector-latest-hadoop2.jar</gcs.connector.file.name>
         <user>root</user>
         <group>root</group>
+
+	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
