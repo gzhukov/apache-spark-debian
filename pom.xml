@@ -8,7 +8,7 @@
     <groupId>apache-spark</groupId>
     <artifactId>apache-spark</artifactId>
     <name>apache-spark</name>
-    <version>1.6.1-iow2</version>
+    <version>1.6.1-iow3</version>
 
     <properties>
         <spark.install.directory>/usr/lib/spark</spark.install.directory>
@@ -182,7 +182,7 @@
                                     <mapper>
                                         <type>perm</type>
                                         <strip>1</strip>
-                                        <prefix>/usr/lib/hadoop-yarn/lib</prefix>
+                                        <prefix>/usr/lib/hadoop-yarn</prefix>
                                         <filemode>644</filemode>
                                         <user>${user}</user>
                                         <uid>0</uid>
