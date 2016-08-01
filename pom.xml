@@ -8,13 +8,13 @@
     <groupId>apache-spark</groupId>
     <artifactId>apache-spark</artifactId>
     <name>apache-spark</name>
-    <version>1.6.2-iow1</version>
+    <version>2.0.0-iow1</version>
 
     <properties>
         <spark.install.directory>/usr/lib/spark</spark.install.directory>
         <spark.download.url>http://d3kbcqa49mib13.cloudfront.net</spark.download.url>
-        <spark.file.name>spark-1.6.2-bin-hadoop2.6.tgz</spark.file.name>
-        <spark.package.name>spark-1.6.2-bin-hadoop2.6</spark.package.name>
+        <spark.file.name>spark-2.0.0-bin-hadoop2.6.tgz</spark.file.name>
+        <spark.package.name>spark-2.0.0-bin-hadoop2.6</spark.package.name>
 
         <gcs.connector.download.url>https://storage.googleapis.com/hadoop-lib/gcs</gcs.connector.download.url>
         <gcs.connector.file.name>gcs-connector-latest-hadoop2.jar</gcs.connector.file.name>
