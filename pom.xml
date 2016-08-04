@@ -8,7 +8,7 @@
     <groupId>apache-spark</groupId>
     <artifactId>apache-spark</artifactId>
     <name>apache-spark</name>
-    <version>2.0.0-iow1</version>
+    <version>2.0.0-iow2</version>
 
     <properties>
         <spark.install.directory>/usr/lib/spark</spark.install.directory>
@@ -124,13 +124,27 @@
                                     <src>${project.build.directory}/${spark.file.name}</src>
                                     <type>archive</type>
                                     <excludes>
-                                        ${spark.package.name}/bin/**,${spark.package.name}/sbin/**,${spark.package.name}/conf/**
+                                        ${spark.package.name}/bin/**,${spark.package.name}/sbin/**,${spark.package.name}/conf/**,${spark.package.name}/jars/spark-core_2.11-2.0.0.jar
                                     </excludes>
 
                                     <mapper>
                                         <type>perm</type>
                                         <strip>1</strip>
                                         <prefix>${spark.install.directory}</prefix>
+                                        <filemode>644</filemode>
+                                        <user>${user}</user>
+                                        <uid>0</uid>
+                                        <group>${group}</group>
+                                        <gid>0</gid>
+                                    </mapper>
+                                </data>
+
+                                <data>
+                                    <src>${basedir}/patch/spark-core_2.11-2.0.0.jar</src>
+                                    <dst>${spark.install.directory}/jars/spark-core_2.11-2.0.0.jar</dst>
+                                    <type>file</type>
+                                    <mapper>
+                                        <type>perm</type>
                                         <filemode>644</filemode>
                                         <user>${user}</user>
                                         <uid>0</uid>
