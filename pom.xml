@@ -8,13 +8,13 @@
     <groupId>apache-spark</groupId>
     <artifactId>apache-spark</artifactId>
     <name>apache-spark</name>
-    <version>2.0.0-iow3</version>
+    <version>2.0.1-iow1</version>
 
     <properties>
         <spark.install.directory>/usr/lib/spark</spark.install.directory>
         <spark.download.url>http://d3kbcqa49mib13.cloudfront.net</spark.download.url>
-        <spark.file.name>spark-2.0.0-bin-hadoop2.6.tgz</spark.file.name>
-        <spark.package.name>spark-2.0.0-bin-hadoop2.6</spark.package.name>
+        <spark.file.name>spark-2.0.1-bin-hadoop2.6.tgz</spark.file.name>
+        <spark.package.name>spark-2.0.1-bin-hadoop2.6</spark.package.name>
 
         <gcs.connector.download.url>https://storage.googleapis.com/hadoop-lib/gcs</gcs.connector.download.url>
         <gcs.connector.file.name>gcs-connector-latest-hadoop2.jar</gcs.connector.file.name>
@@ -124,7 +124,7 @@
                                     <src>${project.build.directory}/${spark.file.name}</src>
                                     <type>archive</type>
                                     <excludes>
-                                        ${spark.package.name}/bin/**,${spark.package.name}/sbin/**,${spark.package.name}/conf/**,${spark.package.name}/jars/spark-core_2.11-2.0.0.jar
+                                        ${spark.package.name}/bin/**,${spark.package.name}/sbin/**,${spark.package.name}/conf/**,${spark.package.name}/jars/spark-core_2.11-2.0.1.jar
                                     </excludes>
 
                                     <mapper>
@@ -140,8 +140,8 @@
                                 </data>
 
                                 <data>
-                                    <src>${basedir}/patch/spark-core_2.11-2.0.0.jar</src>
-                                    <dst>${spark.install.directory}/jars/spark-core_2.11-2.0.0.jar</dst>
+                                    <src>${basedir}/patch/spark-core_2.11-2.0.1.jar</src>
+                                    <dst>${spark.install.directory}/jars/spark-core_2.11-2.0.1.jar</dst>
                                     <type>file</type>
                                     <mapper>
                                         <type>perm</type>
@@ -227,7 +227,7 @@
                                     <type>link</type>
                                     <symlink>true</symlink>
                                     <linkName>/usr/lib/hadoop-yarn/spark-yarn-shuffle.jar</linkName>
-                                    <linkTarget>${spark.install.directory}/yarn/spark-2.0.0-yarn-shuffle.jar</linkTarget>
+                                    <linkTarget>${spark.install.directory}/yarn/spark-2.0.1-yarn-shuffle.jar</linkTarget>
                                 </data>
 
                             </dataSet>
