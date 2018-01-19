@@ -8,13 +8,13 @@
     <groupId>apache-spark</groupId>
     <artifactId>apache-spark</artifactId>
     <name>apache-spark</name>
-    <version>2.2.0-iow3</version>
+    <version>2.2.1-iow1</version>
 
     <properties>
         <spark.install.directory>/usr/lib/spark</spark.install.directory>
         <spark.download.url>https://storage.googleapis.com/iow-spark-binaries</spark.download.url>
-        <spark.file.name>spark-2.2.0-bin-hadoop2.8.tgz</spark.file.name>
-        <spark.package.name>spark-2.2.0-bin-hadoop2.8</spark.package.name>
+        <spark.file.name>spark-2.2.1-bin-hadoop2.8.tgz</spark.file.name>
+        <spark.package.name>spark-2.2.1-bin-hadoop2.8</spark.package.name>
 
         <gcs.connector.download.url>https://storage.googleapis.com/hadoop-lib/gcs</gcs.connector.download.url>
         <gcs.connector.file.name>gcs-connector-1.6.1-hadoop2.jar</gcs.connector.file.name>
@@ -213,7 +213,7 @@
                                     <type>link</type>
                                     <symlink>true</symlink>
                                     <linkName>/usr/lib/hadoop-yarn/spark-yarn-shuffle.jar</linkName>
-                                    <linkTarget>${spark.install.directory}/yarn/spark-2.2.0-yarn-shuffle.jar</linkTarget>
+                                    <linkTarget>${spark.install.directory}/yarn/spark-2.2.1-yarn-shuffle.jar</linkTarget>
                                 </data>
 
                             </dataSet>
