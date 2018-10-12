@@ -16,11 +16,11 @@
         <spark.install.directory>/usr/lib/spark</spark.install.directory>
         <spark.download.url>https://www.apache.org/dyn/closer.lua/spark/spark-${spark.version}/spark-${spark.version}-bin-hadoop${hadoop.version}.tgz</spark.download.url>
         <spark.download.url>http://mirror.cc.columbia.edu/pub/software/apache/spark/spark-${spark.version}</spark.download.url>
-        <spark.file.name>spark-${spark.version}-bin-hadoop${hadoop.version}.tgz</spark.file.name>
-        <spark.package.name>spark-${spark.version}-bin-spark-${spark.version}-bin-hadoop${hadoop.version}</spark.package.name>
+        <spark.package.name>spark-${spark.version}-bin-hadoop${hadoop.version}</spark.package.name>
+        <spark.file.name>${spark.package.name}.tgz</spark.file.name>
 
         <gcs.connector.download.url>https://storage.googleapis.com/hadoop-lib/gcs</gcs.connector.download.url>
-        <gcs.connector.file.name>gcs-connector-1.6.1-hadoop2.jar</gcs.connector.file.name>
+        <gcs.connector.file.name>gcs-connector-latest-hadoop2.jar</gcs.connector.file.name>
         <user>root</user>
         <group>root</group>
 
