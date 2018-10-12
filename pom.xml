@@ -8,13 +8,14 @@
     <groupId>apache-spark</groupId>
     <artifactId>apache-spark</artifactId>
     <name>apache-spark</name>
-    <version>2.3.2-iow2</version>
+    <version>2.3.2-iow1</version>
 
     <properties>
         <spark.version>2.3.2</spark.version>
         <hadoop.version>2.7</hadoop.version>
         <spark.install.directory>/usr/lib/spark</spark.install.directory>
         <spark.download.url>https://www.apache.org/dyn/closer.lua/spark/spark-${spark.version}/spark-${spark.version}-bin-hadoop${hadoop.version}.tgz</spark.download.url>
+        <spark.download.url>http://mirror.cc.columbia.edu/pub/software/apache/spark/spark-${spark.version}</spark.download.url>
         <spark.file.name>spark-${spark.version}-bin-hadoop${hadoop.version}.tgz</spark.file.name>
         <spark.package.name>spark-${spark.version}-bin-spark-${spark.version}-bin-hadoop${hadoop.version}</spark.package.name>
 
