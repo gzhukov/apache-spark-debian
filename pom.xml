@@ -20,7 +20,7 @@
         <spark.file.name>${spark.package.name}.tgz</spark.file.name>
 
         <gcs.connector.download.url>https://storage.googleapis.com/hadoop-lib/gcs</gcs.connector.download.url>
-        <gcs.connector.file.name>gcs-connector-latest-hadoop2.jar</gcs.connector.file.name>
+        <gcs.connector.file.name>gcs-connector-1.6.1-hadoop2.jar</gcs.connector.file.name>
         <user>root</user>
         <group>root</group>
 
