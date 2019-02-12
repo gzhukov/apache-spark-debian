@@ -21,10 +21,12 @@
 
         <gcs.connector.download.url>https://storage.googleapis.com/hadoop-lib/gcs</gcs.connector.download.url>
         <gcs.connector.file.name>gcs-connector-1.6.1-hadoop2.jar</gcs.connector.file.name>
+        <snakeyaml.download.url>http://central.maven.org/maven2/org/yaml/snakeyaml/1.17</snakeyaml.download.url>
+        <snakeyaml.file.name>snakeyaml-1.17.jar</snakeyaml.file.name>
         <user>root</user>
         <group>root</group>
 
-	<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <build>
@@ -55,6 +57,18 @@
                         <configuration>
                             <url>${gcs.connector.download.url}</url>
                             <fromFile>${gcs.connector.file.name}</fromFile>
+                            <toDir>${project.build.directory}</toDir>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>download-snakeyaml</id>
+                        <phase>prepare-package</phase>
+                        <goals>
+                            <goal>download-single</goal>
+                        </goals>
+                        <configuration>
+                            <url>${snakeyaml.download.url}</url>
+                            <fromFile>${snakeyaml.file.name}</fromFile>
                             <toDir>${project.build.directory}</toDir>
                         </configuration>
                     </execution>
@@ -127,7 +141,7 @@
                                     <src>${project.build.directory}/${spark.file.name}</src>
                                     <type>archive</type>
                                     <excludes>
-                                        ${spark.package.name}/bin/**,${spark.package.name}/sbin/**,${spark.package.name}/conf/**
+                                        ${spark.package.name}/bin/**,${spark.package.name}/sbin/**,${spark.package.name}/conf/**,${spark.package.name}/jars/snakeyaml-1.15.jar
                                     </excludes>
 
                                     <mapper>
@@ -168,6 +182,22 @@
                                         <type>perm</type>
                                         <strip>1</strip>
                                         <prefix>${spark.install.directory}/lib</prefix>
+                                        <filemode>644</filemode>
+                                        <user>${user}</user>
+                                        <uid>0</uid>
+                                        <group>${group}</group>
+                                        <gid>0</gid>
+                                    </mapper>
+                                </data>
+
+                                <data>
+                                    <src>${project.build.directory}/${snakeyaml.file.name}</src>
+                                    <type>file</type>
+
+                                    <mapper>
+                                        <type>perm</type>
+                                        <strip>1</strip>
+                                        <prefix>${spark.install.directory}/jars</prefix>
                                         <filemode>644</filemode>
                                         <user>${user}</user>
                                         <uid>0</uid>
