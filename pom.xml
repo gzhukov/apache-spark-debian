@@ -8,10 +8,10 @@
     <groupId>apache-spark</groupId>
     <artifactId>apache-spark</artifactId>
     <name>apache-spark</name>
-    <version>2.4.0-iow6</version>
+    <version>2.4.1-iow1</version>
 
     <properties>
-        <spark.version>2.4.0</spark.version>
+        <spark.version>2.4.1</spark.version>
         <spark.install.directory>/usr/lib/spark</spark.install.directory>
         <spark.download.url>https://archive.apache.org/dist/spark/spark-${spark.version}/spark-${spark.version}-bin-without-hadoop.tgz</spark.download.url>
         <spark.download.url>http://mirror.cc.columbia.edu/pub/software/apache/spark/spark-${spark.version}</spark.download.url>
